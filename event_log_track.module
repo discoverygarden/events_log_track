@@ -89,8 +89,7 @@ function event_log_track_insert(array &$log) {
     $log['ref_numeric'] = NULL;
   }
 
-  \Drupal::database()->merge('event_log_track')
-    ->key('lid')
+  \Drupal::database()->insert('event_log_track')
     ->fields([
       'type' => $log['type'],
       'operation' => $log['operation'],
