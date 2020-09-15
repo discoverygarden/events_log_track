@@ -89,19 +89,38 @@ function event_log_track_insert(array &$log) {
     $log['ref_numeric'] = NULL;
   }
 
-  \Drupal::database()->insert('event_log_track')
-    ->fields([
-      'type' => $log['type'],
-      'operation' => $log['operation'],
-      'description' => $log['description'],
-      'created' => $log['created'],
-      'uid' => $log['uid'],
-      'ip' => $log['ip'],
-      'path' => $log['path'],
-      'ref_char' => $log['ref_char'],
-      'ref_numeric' => $log['ref_numeric'],
-    ])
-    ->execute();
+  if (!isset($log['lid']) || empty($log['lid'])) {
+    \Drupal::database()->insert('event_log_track')
+      ->fields([
+        'type' => $log['type'],
+        'operation' => $log['operation'],
+        'description' => $log['description'],
+        'created' => $log['created'],
+        'uid' => $log['uid'],
+        'ip' => $log['ip'],
+        'path' => $log['path'],
+        'ref_char' => $log['ref_char'],
+        'ref_numeric' => $log['ref_numeric'],
+      ])
+      ->execute();
+  }
+  else {
+    \Drupal::database()->upsert('event_log_track')
+      ->key('lid')
+      ->fields([
+        'lid' => $log['lid'],
+        'type' => $log['type'],
+        'operation' => $log['operation'],
+        'description' => $log['description'],
+        'created' => $log['created'],
+        'uid' => $log['uid'],
+        'ip' => $log['ip'],
+        'path' => $log['path'],
+        'ref_char' => $log['ref_char'],
+        'ref_numeric' => $log['ref_numeric'],
+      ])
+      ->execute();
+  }
 }
 
 /**
