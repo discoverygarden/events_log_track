@@ -1,0 +1,13 @@
+{
+  "name": "drupal/events_log_track",
+  "description": "This module track logs of specific events that you'd like to review",
+  "type": "drupal-module",
+  "keywords": ["Drupal"],
+  "homepage": "https://github.com/discoverygarden/events_log_track/",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Atulesh Kumar"
+    }
+  ]
+}
